@@ -1,9 +1,0 @@
-D:\peak_my_mods\TwitchChat\artifacts\bin\TwitchChat\debug\V8.TwitchChat.deps.json
-D:\peak_my_mods\TwitchChat\artifacts\bin\TwitchChat\debug\V8.TwitchChat.dll
-D:\peak_my_mods\TwitchChat\artifacts\obj\TwitchChat\debug\TwitchChat.csproj.AssemblyReference.cache
-D:\peak_my_mods\TwitchChat\artifacts\obj\TwitchChat\debug\TwitchChat.IgnoresAccessChecksTo.cs
-D:\peak_my_mods\TwitchChat\artifacts\obj\TwitchChat\debug\TwitchChat.GeneratedMSBuildEditorConfig.editorconfig
-D:\peak_my_mods\TwitchChat\artifacts\obj\TwitchChat\debug\TwitchChat.AssemblyInfoInputs.cache
-D:\peak_my_mods\TwitchChat\artifacts\obj\TwitchChat\debug\TwitchChat.AssemblyInfo.cs
-D:\peak_my_mods\TwitchChat\artifacts\obj\TwitchChat\debug\TwitchChat.csproj.CoreCompileInputs.cache
-D:\peak_my_mods\TwitchChat\artifacts\obj\TwitchChat\debug\V8.TwitchChat.dll
