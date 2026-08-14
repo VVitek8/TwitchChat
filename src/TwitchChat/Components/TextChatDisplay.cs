@@ -20,10 +20,10 @@ public class TextChatDisplay : MonoBehaviour {
     float fontSize = 25;
     bool usingIMGUI = false;
 
-    TMP_InputField inputField;
-    RectTransform chatLogViewportTransform;
-    RectTransform baseTransform;
-    CanvasGroup canvasGroup;
+    TMP_InputField inputField = null!;
+    RectTransform chatLogViewportTransform = null!;
+    RectTransform baseTransform = null!;
+    CanvasGroup canvasGroup = null!;
 
     float fade = 1;
     float fadeTimer = -1;
@@ -31,7 +31,7 @@ public class TextChatDisplay : MonoBehaviour {
     float hide = 0;
     float hideTimer = -1;
 
-    KeysHelper.KeyCodeInfo keyInfo;
+    KeysHelper.KeyCodeInfo keyInfo = null!;
 
     Color offWhite = new Color(0.87f,0.85f,0.76f);
     Color red = new Color(0.99f,0.33f,0);
@@ -41,7 +41,7 @@ public class TextChatDisplay : MonoBehaviour {
     public bool isBlockingInput = false;
     public int framesSinceInputBlocked = 0;
 
-    public static TextChatDisplay instance;
+    public static TextChatDisplay instance = null!;
 
     string imguiFieldString = "";
     bool imguiTyping = false;
@@ -74,7 +74,7 @@ public class TextChatDisplay : MonoBehaviour {
         SetupChatGUI();
     }
 
-    GameObject currentSelection;
+    GameObject currentSelection = null!;
 
     void Update() {
         if (isBlockingInput)

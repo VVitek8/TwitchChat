@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>V8.TwitchChat</AssemblyName>
     <AssemblyTitle>TwitchChat</AssemblyTitle>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <RootNamespace>PeakTextChat</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>12.0</LangVersion>
@@ -24,10 +24,11 @@
     <ModFile Include="..\..\libs\TwitchChatAPI.dll" Destination="plugins/" />
   </ItemGroup>
 
-  <!-- NuGet зависимости (только один раз) -->
+
+
   <ItemGroup>
-    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
-    <PackageReference Include="HarmonyX" Version="2.9.0" />
+    <Compile Include="..\..\PeakTextChatPlugin.cs" />
+    <Compile Include="..\..\MyPluginInfo.cs" />
   </ItemGroup>
 
   <!-- Локальные ссылки -->

@@ -7,7 +7,8 @@ namespace PeakTextChat;
 
 [HarmonyPatch(typeof(StaminaBar),"Start")]
 public static class StaminaBarPatch {
-    public static BarGroupChildWatcher barGroupChildWatcher;
+    public static BarGroupChildWatcher barGroupChildWatcher = null!;
+
 
     [HarmonyPostfix]
     public static void Postfix(StaminaBar __instance) {
@@ -32,8 +33,8 @@ public static class StaminaBarPatch {
 
 
 public static class GUIManagerPatch {
-    public static Canvas textChatCanvas;
-    public static TMP_FontAsset darumaDropOneFont;
+    public static Canvas textChatCanvas = null!;
+    public static TMP_FontAsset darumaDropOneFont = null!;
     
     static bool isHUDActive = true;
 
@@ -58,7 +59,7 @@ public static class GUIManagerPatch {
         textChatObj.transform.SetParent(textChatCanvas.transform,false);
         textChatObj.AddComponent<TextChatDisplay>();
         try {
-            darumaDropOneFont = GUIManager.instance?.itemPromptDrop?.font;
+            darumaDropOneFont = GUIManager.instance?.itemPromptDrop?.font!;
         } catch {}
     }
 

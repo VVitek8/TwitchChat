@@ -19,7 +19,7 @@ namespace PeakTextChat
         {
             PeakTextChatPlugin.Logger.LogInfo("[TwitchIntegration] Start() вызван!");
 
-            // Тестовое сообщение — чтобы убедиться, что чат работает
+            // Тестовое сообщение
             if (TextChatDisplay.instance != null)
             {
                 TextChatDisplay.instance.AddMessage("[Twitch] Интеграция запущена! Проверка связи.");
@@ -32,34 +32,37 @@ namespace PeakTextChat
 
             string username = PeakTextChatPlugin.TwitchUsername.Value;
             string oauth = PeakTextChatPlugin.TwitchOAuth.Value;
-            string channel = PeakTextChatPlugin.TwitchUsername.Value;
+            string channel = PeakTextChatPlugin.TwitchUsername.Value; // Используем ник как канал
 
             PeakTextChatPlugin.Logger.LogInfo($"[TwitchIntegration] Настройки: Username='{username}', OAuth='{oauth}', Channel='{channel}'");
 
-            if (string.IsNullOrEmpty(username) || username == "your_nick" ||
-                string.IsNullOrEmpty(oauth) || oauth == "oauth:token" ||
-                string.IsNullOrEmpty(channel) || channel == "your_channel")
+            // Проверяем только ник (обязателен)
+            if (string.IsNullOrEmpty(username) || username == "your_username" ||
+                string.IsNullOrEmpty(channel))
             {
-                PeakTextChatPlugin.Logger.LogError("[TwitchIntegration] Некорректные настройки в конфиге!");
+                PeakTextChatPlugin.Logger.LogError("[TwitchIntegration] Укажите имя пользователя в конфиге!");
                 return;
+            }
+
+            // Если токен не указан или дефолтный — используем анонимный
+            if (string.IsNullOrEmpty(oauth) || oauth == "oauth:s1o2m3e4t5o6k7e8n9")
+            {
+                oauth = "oauth:justinfan12345";
+                PeakTextChatPlugin.Logger.LogInfo("[TwitchIntegration] Используется анонимный токен (только чтение)");
             }
 
             try
             {
-                // Подписываемся на сообщения
                 API.OnMessage += (msg) =>
                 {
-                    // === ИЗВЛЕКАЕМ НИК ===
                     string userName = "Unknown";
                     if (msg.User != null)
                     {
-                        // Пробуем получить DisplayName (отображаемое имя)
                         var displayName = msg.User.GetType().GetProperty("DisplayName")?.GetValue(msg.User) as string;
                         if (!string.IsNullOrEmpty(displayName))
                             userName = displayName;
                         else
                         {
-                            // Если нет, пробуем Name или Login
                             var name = msg.User.GetType().GetProperty("Name")?.GetValue(msg.User) as string;
                             if (!string.IsNullOrEmpty(name))
                                 userName = name;
@@ -71,10 +74,8 @@ namespace PeakTextChat
                             }
                         }
                     }
-                    // =========================
 
                     PeakTextChatPlugin.Logger.LogInfo($"[TwitchIntegration] Получено сообщение от {userName}: {msg.Message}");
-
                     string formatted = $"<color=#9147FF>[Twitch]</color> <color=#FFFFFF>{userName}:</color> {msg.Message}";
                     if (TextChatDisplay.instance != null)
                     {

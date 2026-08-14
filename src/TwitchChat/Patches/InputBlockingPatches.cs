@@ -4,7 +4,7 @@ using HarmonyLib;
 namespace PeakTextChat;
 
 public static class InputBlockingPatches {
-    private static MethodInfo windowBlockingInput;
+    private static MethodInfo windowBlockingInput = null!;
 
     [HarmonyPatch(typeof(GUIManager),nameof(GUIManager.UpdateWindowStatus))]
     [HarmonyPostfix]
