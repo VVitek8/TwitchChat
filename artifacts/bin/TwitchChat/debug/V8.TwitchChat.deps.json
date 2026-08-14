@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "V8.TwitchChat/1.0.1": {
+      "V8.TwitchChat/1.0.2": {
         "dependencies": {
           "BepInEx.AssemblyPublicizer.MSBuild": "0.4.3",
           "BepInEx.Core": "5.4.21",
@@ -217,7 +217,7 @@
     }
   },
   "libraries": {
-    "V8.TwitchChat/1.0.1": {
+    "V8.TwitchChat/1.0.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

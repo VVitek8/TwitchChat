@@ -2487,13 +2487,13 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.2",
     "restore": {
-      "projectUniqueName": "D:\\peak_my_mods\\TwitchChat\\src\\TwitchChat\\TwitchChat.csproj",
+      "projectUniqueName": "d:\\peak_my_mods\\TwitchChat\\src\\TwitchChat\\TwitchChat.csproj",
       "projectName": "V8.TwitchChat",
-      "projectPath": "D:\\peak_my_mods\\TwitchChat\\src\\TwitchChat\\TwitchChat.csproj",
+      "projectPath": "d:\\peak_my_mods\\TwitchChat\\src\\TwitchChat\\TwitchChat.csproj",
       "packagesPath": "C:\\Users\\Viktor\\.nuget\\packages\\",
-      "outputPath": "D:\\peak_my_mods\\TwitchChat\\artifacts\\obj\\TwitchChat\\",
+      "outputPath": "d:\\peak_my_mods\\TwitchChat\\artifacts\\obj\\TwitchChat\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

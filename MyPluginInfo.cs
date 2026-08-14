@@ -4,6 +4,6 @@ namespace PeakTextChat
     {
         public const string PLUGIN_GUID = "V8.TwitchChat";
         public const string PLUGIN_NAME = "TwitchChat";
-        public const string PLUGIN_VERSION = "1.0.0";
+        public const string PLUGIN_VERSION = "1.0.2";
     }
 }

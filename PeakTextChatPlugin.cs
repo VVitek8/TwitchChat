@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace PeakTextChat;
 
-[BepInPlugin("com.borealityy.peaktextchat", "PeakTextChat", MyPluginInfo.PLUGIN_VERSION)]
+[BepInPlugin(PLUGIN_GUID, PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class PeakTextChatPlugin : BaseUnityPlugin
 {
     internal static new ManualLogSource Logger;
