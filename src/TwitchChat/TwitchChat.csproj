@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>V8.TwitchChat</AssemblyName>
     <AssemblyTitle>TwitchChat</AssemblyTitle>
-    <Version>1.0.3</Version>
+    <Version>1.2.0</Version>
     <RootNamespace>PeakTextChat</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>12.0</LangVersion>
@@ -18,29 +18,35 @@
     <ThunderstoreCategories>mods</ThunderstoreCategories>
   </PropertyGroup>
 
-  <!-- Файлы для копирования -->
+  <!-- Файлы для копирования в плагины (только необходимые для работы) -->
   <ItemGroup>
     <ModFile Include="$(TargetPath)" Destination="plugins/" />
-    <ModFile Include="..\..\libs\TwitchChatAPI.dll" Destination="plugins/" />
+    
+    <!-- TwitchLib и основные зависимости -->
+    <ModFile Include="..\..\libs\TwitchLib.Client.dll" Destination="plugins/" />
+    <ModFile Include="..\..\libs\TwitchLib.Client.Models.dll" Destination="plugins/" />
+    <ModFile Include="..\..\libs\TwitchLib.Client.Enums.dll" Destination="plugins/" />
+    <ModFile Include="..\..\libs\TwitchLib.Communication.dll" Destination="plugins/" />
+    
+    <!-- Системные зависимости (необходимы для TwitchLib) -->
+    <ModFile Include="..\..\libs\System.Memory.dll" Destination="plugins/" />
+    <ModFile Include="..\..\libs\System.Buffers.dll" Destination="plugins/" />
+    <ModFile Include="..\..\libs\System.Runtime.CompilerServices.Unsafe.dll" Destination="plugins/" />
+    
+    <!-- Зависимости логирования -->
+    <ModFile Include="..\..\libs\Microsoft.Extensions.Logging.Abstractions.dll" Destination="plugins/" />
+    <ModFile Include="..\..\libs\Microsoft.Extensions.DependencyInjection.Abstractions.dll" Destination="plugins/" />
+    <ModFile Include="..\..\libs\System.Diagnostics.DiagnosticSource.dll" Destination="plugins/" />
   </ItemGroup>
 
-
-
+  <!-- Явное включение файлов из корня -->
   <ItemGroup>
     <Compile Include="..\..\PeakTextChatPlugin.cs" />
     <Compile Include="..\..\MyPluginInfo.cs" />
   </ItemGroup>
 
-  <!-- Локальные ссылки -->
+  <!-- Ссылки на библиотеки игры (только для компиляции) -->
   <ItemGroup>
-    <Reference Include="TwitchChatAPI">
-      <HintPath>..\..\libs\TwitchChatAPI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\libs\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\libs\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -89,14 +95,52 @@
       <HintPath>..\..\libs\UnityEngine.InputLegacyModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>..\..\libs\UnityEngine.InputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- PEAKLib для компиляции (не копируются в релиз, т.к. указаны как зависимости в manifest.json) -->
+    <Reference Include="com.github.PEAKModding.PEAKLib.Core">
+      <HintPath>..\..\libs\com.github.PEAKModding.PEAKLib.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="com.github.PEAKModding.PEAKLib.UI">
+      <HintPath>..\..\libs\com.github.PEAKModding.PEAKLib.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Эти ссылки нужны только для компиляции, не копируются -->
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>..\..\libs\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\..\libs\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\..\libs\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
 
   <!-- Thunderstore метаданные -->
   <ItemGroup>
-    <ThunderstorePackageFile Include="$(SolutionRoot)README.md" />
-    <ThunderstorePackageFile Include="$(SolutionRoot)CHANGELOG.md" />
-    <ThunderstorePackageFile Include="$(SolutionRoot)icon.png" />
-    <ThunderstorePackageFile Include="$(SolutionRoot)LICENSE" />
-    <ThunderstoreDependency Include="BepInEx-BepInExPack_PEAK" Version="5.4.75301" />
+      <ThunderstorePackageFile Include="$(SolutionRoot)README.md" />
+      <ThunderstorePackageFile Include="$(SolutionRoot)CHANGELOG.md" />
+      <ThunderstorePackageFile Include="$(SolutionRoot)icon.png" />
+      <ThunderstorePackageFile Include="$(SolutionRoot)LICENSE" />
+      <ThunderstoreDependency Include="BepInEx-BepInExPack_PEAK" Version="5.4.75301" />
+      <!--
+      <ThunderstoreDependency Include="PEAKModding-PEAKLib_Core" Version="1.7.0" />
+      <ThunderstoreDependency Include="PEAKModding-PEAKLib_UI" Version="1.6.1" />
+      -->
+  </ItemGroup>
+
+  <!-- NuGet зависимости для компиляции -->
+  <ItemGroup>
+    <PackageReference Include="TwitchLib.Client" Version="3.3.1" />
+    <PackageReference Include="TwitchLib.Communication" Version="1.0.4" />
   </ItemGroup>
 </Project>

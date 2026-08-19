@@ -277,16 +277,67 @@ public class TextChatDisplay : MonoBehaviour {
         return text;
     }
 
+    // === НОВЫЙ МЕТОД ДЛЯ СООБЩЕНИЙ ИЗ TWITCH (с поддержкой анимации %) ===
+    public void AddTwitchMessage(string displayName, string colorHex, string message)
+    {
+        if (chatLogViewportTransform == null) return;
+
+        bool isAnimated = message.StartsWith("%");
+        string displayMessage = isAnimated ? message.Substring(1).Trim() : message;
+
+        string formattedMessage = $"<color=#9147FF>[Twitch]</color> <color={colorHex}>{displayName}</color>: {displayMessage}";
+
+        var tmpText = CreateText(chatLogViewportTransform);
+        tmpText.text = formattedMessage;
+        tmpText.color = offWhite;
+        tmpText.lineSpacing = -fontSize * 0.75f;
+        var prefValues = tmpText.GetPreferredValues(formattedMessage, boxSize.x - 24, 1000);
+
+        ((RectTransform)tmpText.transform).sizeDelta = new Vector2(0, prefValues.y);
+
+        // Если анимированное — создаём дочерний объект для сообщения
+        if (isAnimated)
+        {
+            GameObject animObj = new GameObject("AnimatedMessageText");
+            animObj.transform.SetParent(tmpText.transform, false);
+            var animTmp = animObj.AddComponent<TextMeshProUGUI>();
+            animTmp.text = displayMessage;
+            animTmp.font = tmpText.font;
+            animTmp.fontSize = tmpText.fontSize;
+            animTmp.color = tmpText.color;
+            animTmp.alignment = tmpText.alignment;
+
+            tmpText.text = $"<color=#9147FF>[Twitch]</color> <color={colorHex}>{displayName}</color>: ";
+
+            var wave = animObj.AddComponent<WaveMessageAnimation>();
+            wave.Setup(fontSize, offWhite);
+        }
+
+        var chatMessage = new ChatMessage(formattedMessage, tmpText.gameObject, messageHideDelay);
+        messages.Add(chatMessage);
+        if (messages.Count > maxMessages)
+        {
+            var firstMessage = messages[0];
+            if (firstMessage != null && firstMessage.textObj != null)
+            {
+                GameObject.Destroy(firstMessage.textObj);
+            }
+            messages.RemoveAt(0);
+        }
+        ResetTimers();
+    }
+
     public void AddMessage(string message) {
         if (chatLogViewportTransform != null) {
             var tmpText = CreateText(chatLogViewportTransform);
             tmpText.text = message;
             tmpText.color = offWhite;
             tmpText.lineSpacing = -fontSize * 0.75f;
-            var prefValues = tmpText.GetPreferredValues(message,boxSize.x - 24,1000);
+            var prefValues = tmpText.GetPreferredValues(message, boxSize.x - 24, 1000);
 
-            ((RectTransform)tmpText.transform).sizeDelta = new Vector2(0,prefValues.y);
-            var chatMessage = new ChatMessage(message,tmpText.gameObject,messageHideDelay);
+            ((RectTransform)tmpText.transform).sizeDelta = new Vector2(0, prefValues.y);
+
+            var chatMessage = new ChatMessage(message, tmpText.gameObject, messageHideDelay);
             messages.Add(chatMessage);
             if (messages.Count > maxMessages) {
                 var firstMessage = messages[0];

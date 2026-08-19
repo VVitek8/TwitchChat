@@ -19,7 +19,7 @@
   <PropertyGroup>
     <ThunderstoreTeam>Vitek8</ThunderstoreTeam>
     <!-- TODO: Add a link to your mod repository here (optional) -->
-    <RepositoryUrl></RepositoryUrl>
+    <RepositoryUrl>https://github.com/VVitek8/TwitchChat</RepositoryUrl>
   </PropertyGroup>
 
   <!-- Shared primary configuration for the project -->
